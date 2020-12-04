@@ -14,18 +14,19 @@
 tabData = axios.get('https://lambda-times-api.herokuapp.com/topics')
 .then((res) => {
     
-    const tabSection = document.querySelector("div");
+    const tabSection = document.querySelector(".tabs");
     const getData = res.data;
     getData.topics.forEach((item) => {
         const tab = document.createElement("div");
+        tab.classList.add("tab")
         tab.textContent = item;
-        const tabSection = document.querySelector(".tpoics");
+        const tabSection = document.querySelector(".topics");
         tabSection.appendChild(tab);
     })
     console.log(getData);
      getData.topics.forEach((element) => {
     // topicsBar.appendChild
-    console.log(element);
+    // console.log(element);
 
   })
 

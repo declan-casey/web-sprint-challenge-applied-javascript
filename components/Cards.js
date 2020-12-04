@@ -22,8 +22,13 @@
 // Use your function to create a card for each of the articles, and append each card to the DOM.
 axios.get('https://lambda-times-api.herokuapp.com/articles')
 .then((res) => {
-  const getData = res.data;
-  console.log(getData);
+    const objData =res.data;
+    const wholeCard = document.querySelector(".cards-container");
+    for (const key of Object.keys(objData)) {
+        wholeCard.appendChild(cardMaker(objData[key]));
+        console.log(objData[key]);
+    }
+    console.log(objData);
 })
 
 
@@ -32,5 +37,45 @@ axios.get('https://lambda-times-api.herokuapp.com/articles')
 })
 
 function cardMaker(obj){
-    
+    const card = document.createElement("div");
+    const headliner = document.createElement("div");
+    const author = document.createElement("div");
+    const imgContainer = document.createElement("div");
+    const img = document.createElement("img");
+    const authorsName = document.createElement("span");
+
+
+    headliner.textContent = obj.headline;
+    img.src = obj.authorPhoto;
+    // authorsName = obj.authorName;
+
+    card.appendChild(headliner);
+    card.appendChild(author);
+    author.appendChild(imgContainer);
+    imgContainer.appendChild(img);
+    author.appendChild(authorsName);
+
+    card.classList.add("card");
+    headliner.classList.add("headline");
+    author.classList.add("author");
+    imgContainer.classList.add("img-container");
+
+    return card;
 }
+
+
+// const getData = [
+    //       objData.articles.bootstrap,
+    //        objData.articles.javascript, 
+    //        objData.articles.jquery, 
+    //        objData.aticles.node.js, 
+    //        objData.articles.technology
+    //     ];
+    //     const cardContainer = document.querySelector(".cards-container");
+    //   getData.forEach((item) => {
+    //     item.forEach((i) => {
+    //         cardContainer.appendChild(cardMaker(i));
+    //     })
+    //   })
+    //   console.log(getData);
+    //   console.log(objData);
