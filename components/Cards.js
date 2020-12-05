@@ -22,11 +22,15 @@
 // Use your function to create a card for each of the articles, and append each card to the DOM.
 axios.get('https://lambda-times-api.herokuapp.com/articles')
 .then((res) => {
-    const objData =res.data;
+    const objData =res.data.articles;
     const wholeCard = document.querySelector(".cards-container");
-    for (const key of Object.keys(objData)) {
-        wholeCard.appendChild(cardMaker(objData[key]));
-        console.log(objData[key]);
+    console.log(objData);
+    for (const key in objData) {
+        Array.from(objData[key]).forEach(element => {
+            console.log(element);
+            wholeCard.appendChild(cardMaker(element));
+        })
+        
     }
     console.log(objData);
 })
@@ -47,7 +51,7 @@ function cardMaker(obj){
 
     headliner.textContent = obj.headline;
     img.src = obj.authorPhoto;
-    // authorsName = obj.authorName;
+    authorsName.textContent = obj.authorName;
 
     card.appendChild(headliner);
     card.appendChild(author);
@@ -59,6 +63,10 @@ function cardMaker(obj){
     headliner.classList.add("headline");
     author.classList.add("author");
     imgContainer.classList.add("img-container");
+
+    card.addEventListener("click",() => {
+        console.log(obj.headline)
+    })
 
     return card;
 }
